@@ -3,13 +3,13 @@
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
 
-    /*if(!@copy('http://www.org.net.ua/price_opt.zip','./test.zip'))
+   if(!@copy('http://www.org.net.ua/price_opt.zip','./test.zip'))
     {
         $errors= error_get_last();
         echo "COPY ERROR: ".$errors['type'];
         echo "<br />\n".$errors['message'];
     } else {
-     echo "File copied from remote!";
+     echo "File copied from remote! . <br/>";
     }
 
    /* $curl = curl_init('http://www.org.net.ua/price_opt.zip');
@@ -21,7 +21,7 @@
     fflush($fp);
     fclose($fp);*/
 
-    /*$zip = new ZipArchive;
+   $zip = new ZipArchive;
     $file = realpath("test.zip");
     $res = $zip->open($file);
     if ($res === TRUE) {
@@ -30,7 +30,7 @@
         echo 'ok';
     } else {
         echo 'failed, code:' . $res;
-    }*/
+    }
 
    /* $xml = simplexml_load_file(test.xls);
     $row = 0;
@@ -89,8 +89,8 @@ if (is_dir($dir)) {
 }
 */
 
-require_once 'Classes/PHPExcel.php';
-$pExcel = PHPExcel_IOFactory::load('test.xls');
+require_once 'PHPExcel.php';
+$pExcel = PHPExcel_IOFactory::load('unzip/'.'price_opt.xls');
 
 // Цикл по листам Excel-файла
 foreach ($pExcel->getWorksheetIterator() as $worksheet) {
@@ -99,15 +99,26 @@ foreach ($pExcel->getWorksheetIterator() as $worksheet) {
 }
 
 foreach( $tables as $table ) {
+
     echo '<table border="1">';
     // Цикл по строкам
     foreach($table as $row) {
-        echo '<tr>';
-        // Цикл по колонкам
-        foreach( $row as $col ) {
-            echo '<td>'.$col.'</td>';
+
+        //       Выберает по ID
+        $s =  str_replace(',','', $row[0] );
+        if (!is_numeric($s)) {
+            continue;
         }
-        echo '</tr>';
+
+        echo '<tr>';
+           // Цикл по колонкам
+        foreach( $row as $key => $col ) {
+            //Убирает четвертый столбец
+           if ($key != 3) {
+                echo '<td>' . $col . '</td>';
+           }
+        }
+            echo '</tr>';
     }
     echo '</table>';
 }
