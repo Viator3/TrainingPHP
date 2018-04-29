@@ -7,21 +7,21 @@
 
 <body>
     <?php
-        echo 'Hello';
-        echo 2 + 2;
+        echo 'Hello' . '<br/>';
+        echo 2 + 2 . '<br/>';
         // Comment
         # Comment
         /*
         * Comment Line1
         * Comment Line2
         */
-        echo 'a';
-        print (123);
-        echo 'b';
-        print (2 + 20);
-        echo 'c';
-        echo 1 + 2 + 3;
-        echo 'd';
+        echo 'a' . '<br/>';
+        print (123 . '<br/>');
+        echo 'b <br/>';
+        print (2 + 20 . '<br/>');
+        echo 'c <br/>';
+        echo 1 + 2 + 3 . '<br/>';
+        echo 'd <br/>';
 
         $a;
         $street;
@@ -35,7 +35,7 @@
         $a = 3;
         echo $a += 4;
 
-        echo $user = "Bred";
+        echo '<br/>' . $user = "Bred <br/>";
         unset($user);
         echo $user;
         print ($user);
@@ -43,33 +43,39 @@
         $a = 5;
         $b = $a;
         $a = 10;
-        echo $a, $b;
+        echo "$a, $b <br/>";
 
         $a = 5;
         $b = &$a;
         $a = 10;
-        echo $a, $b;
+        echo "$a, $b <br/>";
 
         define("PI", 3.141592);
         $radius = 10;
         $square = PI * $radius * $radius;
-        echo $square;
+        echo $square . '<br/>';
 
         define('NAME', 'Viktor');
-        echo NAME;
+        echo NAME . '<br/>';
 
         const NAME2 = 'VIKTOR_2';
-        echo NAME2;
+        echo NAME2 . '<br/>';
 
+        unset($a);
         $a = 2;
-        echo $a;
-        echo $b = 4;
+        echo '$a = ' . $a . ', ';
+        echo '$b = ' . $b = 4 . '<br/>';
+        echo '-$a = ' . (-$a) . '<br/>';
+        echo '$a + $b = ' . ($a + $b) . '<br/>';
+        echo '$a - $b = ' . ($a - $b) . '<br/>';
+        echo '$a * $b = ' . ($a * $b) . '<br/>';
+        echo '$a / $b = ' . ($a / $b) . '<br/>';
+        echo '$a % $b = ' . ($a % $b) . '<br/>';
 
-        echo $a, $b, $a + $b;
-        echo $a - $b;
-        echo $a * $b;
-        echo $a / $b;
-        echo $a % $b;
+        $hello = 'world';
+        $str = 'hello';
+        echo $str . '<br/>';
+        echo $$str;
     ?>
 </body>
 </html>
