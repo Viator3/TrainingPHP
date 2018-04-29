@@ -76,6 +76,14 @@
         $str = 'hello';
         echo $str . '<br/>';
         echo $$str;
+
+        echo '<br/>If $a = ' . $a = 5 . ', then:<br/>';
+        echo '$a += 2 equally ' . $a += 2;
+        echo '<br/>$a -= 2 equally ' . $a -= 2;
+        echo '<br/>$a *= 2 equally ' . $a *= 2;
+        echo '<br/>$a /= 2 equally ' . $a /= 2;
+        echo '<br/>$a %= 2 equally ' . $a %= 2;
+        echo '<br/>$a .= 2 equally ' . $a .= 2;
     ?>
 </body>
 </html>
