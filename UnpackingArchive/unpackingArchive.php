@@ -12,15 +12,6 @@
      echo "File copied from remote! . <br/>";
     }
 
-   /* $curl = curl_init('http://www.org.net.ua/price_opt.zip');
-    $fp = fopen('test.zip','w');
-    curl_setopt($curl, CURLOPT_FILE, $fp);
-    curl_setopt($curl, CURLOPT_HEADER, 0);
-    curl_exec($curl);
-    curl_close($curl);
-    fflush($fp);
-    fclose($fp);*/
-
    $zip = new ZipArchive;
     $file = realpath("test.zip");
     $res = $zip->open($file);
@@ -32,62 +23,6 @@
         echo 'failed, code:' . $res;
     }
 
-   /* $xml = simplexml_load_file(test.xls);
-    $row = 0;
-    foreach ($xml->sheetData->row as $item) {
-        $out[test.xls][$row] = array();
-        //по каждой ячейке строки
-        $cell = 0;
-        foreach ($item as $child) {
-            $attr = $child->attributes();
-            $value = isset($child->v)? (string)$child->v:false;
-            $out[test.xls][$row][$cell] = isset($attr['t']) ? $sharedStringsArr[$value] : $value;
-            $cell++;
-        }
-        $row++;
-}
-var_dump($out);*/
-//closedir($handle);
-
-
-/*$dir = "/var/www/html/";
-//$handle = @opendir(PATH . '/unzip');
-$handle = @opendir($dir);
-$out = array();
-while ($file = @readdir($handle)) {
-    //проходим по всем файлам из директории /unzip
-    if ($file != "." && $file != ".." && $file != '_rels') {
-        $xml = simplexml_load_file($dir . $file);
-        //по каждой строке
-        $row = 0;
-        foreach ($xml->sheetData->row as $item) {
-            $out[$file][$row] = array();
-            //по каждой ячейке строки
-            $cell = 0;
-            foreach ($item as $child) {
-                $attr = $child->attributes();
-                $value = isset($child->v)? (string)$child->v:false;
-                $out[$file][$row][$cell] = isset($attr['t']) ? $sharedStringsArr[$value] : $value;
-                $cell++;
-            }
-            $row++;
-        }
-    }
-}
-var_dump($out);*/
-/*
-$dir = "/var/www/html/";
-
-// Открыть известный каталог и начать считывать его содержимое
-if (is_dir($dir)) {
-    if ($dh = opendir($dir)) {
-        while (($file = readdir($dh)) !== false) {
-            echo "файл: $file : тип: " . filetype($dir . $file) . "\n" . '<br/>';
-        }
-        closedir($dh);
-    }
-}
-*/
 
 require_once 'PHPExcel.php';
 $pExcel = PHPExcel_IOFactory::load('unzip/'.'price_opt.xls');
@@ -97,10 +32,21 @@ foreach ($pExcel->getWorksheetIterator() as $worksheet) {
     // выгружаем данные из объекта в массив
     $tables[] = $worksheet->toArray();
 }
+//var_dump($tables);
+
+$con = mysqli_connect("localhost", "root", "", "base_price");
+mysqli_set_charset($con,"utf-8");
+
+if (mysqli_connect_errno()) {
+    echo "Filed: " . mysqli_connect_error();
+}
+
+//$query = "INSERT INTO `orgtekhnika_price` (`id`, `brand_name`, `model`, `price_usd`, `price_uah`, `existence`) VALUES ('1', '', '', NULL, NULL, '')";
+//$zapros = mysqli_query($con, $query);
 
 foreach( $tables as $table ) {
 
-    echo '<table border="1">';
+
     // Цикл по строкам
     foreach($table as $row) {
 
@@ -109,17 +55,27 @@ foreach( $tables as $table ) {
         if (!is_numeric($s)) {
             continue;
         }
+        $d = str_replace('','', $row[1] );
+        $query = "INSERT INTO `orgtekhnika_price` (`id`, `brand_name`, `model`, `price_usd`, `price_uah`, `existence`) VALUES ($s, $d, '', NULL, NULL, '')";
+        $zapros = mysqli_query($con, $query);
 
-        echo '<tr>';
-           // Цикл по колонкам
-        foreach( $row as $key => $col ) {
-            //Убирает четвертый столбец
-           if ($key != 3) {
-                echo '<td>' . $col . '</td>';
-           }
-        }
-            echo '</tr>';
+
+
+        // Цикл по колонкам
+//        foreach( $row as $key => $col ) {
+//            if ($key == 0) {
+//                $query = "INSERT INTO `orgtekhnika_price` (`id`, `brand_name`, `model`, `price_usd`, `price_uah`, `existence`) VALUES ('1', '', '', NULL, NULL, '')";
+//                $zapros = mysqli_query($con, $query);
+//            }
+//
+//            //Убирает четвертый столбец
+////            if ($key != 3 ) {
+////
+////            }
+//        }
+
     }
-    echo '</table>';
+
 }
+
 ?>
