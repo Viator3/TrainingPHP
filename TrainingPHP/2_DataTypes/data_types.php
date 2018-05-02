@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>PHP Basics</title>
+    <title>DataTypes</title>
     <meta charset = "utf-8" />
 </head>
 
@@ -104,7 +104,7 @@
 
         var_dump($students[3]['gender']);
 
-        echo count($students) . '<br/>';
+        echo '<br/>' . count($students) . '<br/>';
         echo count($students[2]) . '<br/>';
         echo count($students[3]['age']) . '<br/>';
     ?>
