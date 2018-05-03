@@ -98,6 +98,51 @@ $a = 10; $b = 20;
 echo '$ = ' . $a . ', $b = ' . $b . '<br/>';
 echo 'areaRectangle = ' . areaRectangle($a, $b) . '<br/>';
 
+//Recursive Function
+echo "<br/>Recursive Function<br/>";
+$array = array (
+    'Auto Technology' => array(
+        'Velo' => array(
+            'Bicycles' => array(
+                '(product) Extreme' => 10,
+                '(product) Author' => 4,
+            ),
+            'Scooters' => 12,
+        ),
+        'Auto' => array(
+            'Opel' => array(
+                '(product) Vivaro' => 5,
+            ),
+            '(product) Honda' => 10,
+            '(product) Audi' => 11,
+        ),
+        '(product) Accessories' => 7,
+    ),
+    'Photographic equipment' => array(
+        'Photocamera' => 6,
+        'Camcorders' => 3,
+    ),
+    'Other' => 3,
+);
+
+function recursiveFunction($array/*, $level = 0*/) {
+    static $sum;
+    static $count;
+    if (is_array($array)) {
+        //$level++;
+        foreach ($array as $element) {
+            recursiveFunction($element/*, $level*/);
+        }
+    } else {
+        $count++;
+        $sum += $array;
+    }
+    return array('count' => $count, 'sum' => $sum);
+}
+
+$result = recursiveFunction($array);
+var_dump($result);
+
 ?>
 </body>
 </html>
