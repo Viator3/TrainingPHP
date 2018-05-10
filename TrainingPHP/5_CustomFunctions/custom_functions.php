@@ -8,28 +8,30 @@
 <body>
 <?php
 
+include_once 'recursiveFunction.php';
+
 mysecondfunction('World');
 
 function myFirstFunction() {
-    echo "<h1>Hello</h1>";
+    echo "\nHello\n";
 }
 
 function mySecondFunction($name) {
-    echo "<h1>Hello, $name</h1>";
+    echo "\nHello, $name\n";
 }
 
 function myThirdFunction($name, $authorsName) {
-    echo "<h1>Hello, $name, this is $authorsName</h1>";
+    echo "\nHello, $name, this is $authorsName\n\n";
 }
 
 function myFourthFunction($array) {
     foreach ($array as $name) {
-        echo "Hello, $name<br/>";
+        echo "Hello, $name\n";
     }
 }
 
 function myFifthFunction($name = 'User') {
-    echo "Hello, $name<br/>";
+    echo "Hello, $name\n";
 }
 
 myFirstFunction();
@@ -37,7 +39,7 @@ myThirdFunction('World', 'Valera');
 
 $arr = array('Bim', 'Dim', 'Gim');
 myFourthFunction($arr);
-echo '<br/>';
+echo "\n";
 
 myFifthFunction();
 myFifthFunction('Dim');
@@ -47,59 +49,59 @@ function mySixthFunction($name = 'User') {
     $a = 2; //a = 2
 }
 mySixthFunction();
-echo "<br/>$a<br/>";  //a = 1
+echo "\n$a\n";  //a = 1
 
 //Global variables
-echo "<br/>Global variable<br/>";
+echo "\nGlobal variable\n";
 $name = 'Dim';
 $name2 = 'Gim';
 function mySeventhFunction() {
     $name = 'Bim';
-    echo "Hello, $name<br/>";
+    echo "Hello, $name\n";
 
     global $name;
-    echo "Hello, $name<br/>";
+    echo "Hello, $name\n";
     $name = 'Kim';
 
-    echo 'Hello, ' . $GLOBALS['name2'] . '<br/>';
+    echo 'Hello, ' . $GLOBALS['name2'] . "\n";
     $GLOBALS['name2'] = 'Tim';
 }
 mySeventhFunction();
-echo "Hello, $name<br/>";
-echo "Hello, $name2<br/>";
+echo "Hello, $name\n";
+echo "Hello, $name2\n";
 
 //Passing by reference
-echo "<br/>Passing by reference<br/>";
+echo "\nPassing by reference\n";
 function myEighthFunction($alfa, &$beta) {
     $alfa = 10; $beta = 10;
 }
 $alfa = 5; $beta = 5;
 myEighthFunction($alfa, $beta);
-echo '$alfa = ' . $alfa . ', $beta = ' . $beta . '<br/>';
+echo '$alfa = ' . $alfa . ', $beta = ' . $beta . "\n";
 
 //Static variable
-echo "<br/>Static variable<br/>";
+echo "\nStatic variable\n";
 function staticVariable() {
     $one = 0; static $two = 0;
     ++$one; ++$two;
-    echo '$one = ' . $one . ', $two = ' . $two . '<br/>';
+    echo '$one = ' . $one . ', $two = ' . $two . "\n";
 }
 staticVariable();
 staticVariable();
 staticVariable();
 
 //Return values
-echo "<br/>Return values<br/>";
+echo "\nReturn values\n";
 function areaRectangle($a, $b) {
     $area = $a * $b;
     return $area;
 }
 $a = 10; $b = 20;
-echo '$ = ' . $a . ', $b = ' . $b . '<br/>';
-echo 'areaRectangle = ' . areaRectangle($a, $b) . '<br/>';
+echo '$ = ' . $a . ', $b = ' . $b . "\n";
+echo 'areaRectangle = ' . areaRectangle($a, $b) . "\n";
 
 //Recursive Function
-echo "<br/>Recursive Function<br/>";
+echo "\nRecursive Function\n";
 $array = array (
     'Auto Technology' => array(
         'Velo' => array(
@@ -125,20 +127,20 @@ $array = array (
     'Other' => 3,
 );
 
-function recursiveFunction($array/*, $level = 0*/) {
-    static $sum;
-    static $count;
-    if (is_array($array)) {
-        //$level++;
-        foreach ($array as $element) {
-            recursiveFunction($element/*, $level*/);
-        }
-    } else {
-        $count++;
-        $sum += $array;
-    }
-    return array('count' => $count, 'sum' => $sum);
-}
+//function recursiveFunction($array/*, $level = 0*/) {
+//    static $sum;
+//    static $count;
+//    if (is_array($array)) {
+//        //$level++;
+//        foreach ($array as $element) {
+//            recursiveFunction($element/*, $level*/);
+//        }
+//    } else {
+//        $count++;
+//        $sum += $array;
+//    }
+//    return array('count' => $count, 'sum' => $sum);
+//}
 
 $result = recursiveFunction($array);
 var_dump($result);

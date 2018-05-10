@@ -37,10 +37,7 @@
 
     echo 'get_defined_vars() - gets all the defined variables in the given place of the program: ' . "\n";
     print_r(get_defined_vars());
-
-
-
 ?>
-?>
+
 </body>
 </html>
