@@ -2,7 +2,20 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-$nickname = $_COOKIE['nickname'];
+session_start();
+
+function transit() {
+    header('Location: result.php');
+    exit;
+}
+
+$nickname = $_SESSION['nickname'];
+
+if (isset($_POST['answer3']) && (!empty($_POST['answer3']))) {
+    $answer3 = $_POST['answer3'];
+    $_SESSION['$answer3'] = $answer3;
+    transit();
+}
 
 ?>
 
@@ -15,7 +28,7 @@ $nickname = $_COOKIE['nickname'];
 </head>
 
 <body>
-<form action="result.php" method="post">
+<form method="post">
     <h1>Task3</h1>
 
     <p>Hello,

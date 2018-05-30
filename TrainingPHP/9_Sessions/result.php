@@ -2,7 +2,14 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-$nickname = $_COOKIE['nickname'];
+session_start();
+
+$nickname = $_SESSION['nickname'];
+$correctAnswer = 0;
+
+if ($_SESSION['$answer1'] == 4) {$correctAnswer++;}
+if ($_SESSION['$answer2'] == 7) {$correctAnswer++;}
+if ($_SESSION['$answer3'] == 13) {$correctAnswer++;}
 
 ?>
 
@@ -19,9 +26,14 @@ $nickname = $_COOKIE['nickname'];
 
     <p>Hello,
         <?php
-        print_r($nickname);
+            print_r($nickname);
         echo '<br/>';
         ?>
+        You have
+        <?php
+            print_r($correctAnswer);
+        ?>
+        correct answers!
     </p>
 
 

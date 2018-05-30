@@ -7,12 +7,16 @@ function transit() {
     exit;
 }
 
+session_start();
+
 if (isset($_POST['nickname']) && (!empty($_POST['nickname']))) {
     $nickname = $_POST['nickname'];
+    $_SESSION['nickname'] = $nickname;
     setcookie('nickname', $nickname);
     transit();
 } elseif (isset($_COOKIE['nickname'])) {
     $nickname = $_COOKIE['nickname'];
+    $_SESSION['nickname'] = $nickname;
     if (isset($_POST['submit'])) {
         transit();
     }
