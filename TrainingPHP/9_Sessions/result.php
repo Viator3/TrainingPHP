@@ -26,14 +26,10 @@ if ($_SESSION['$answer3'] == 13) {$correctAnswer++;}
 
     <p>Hello,
         <?php
-            print_r($nickname);
-        echo '<br/>';
+            echo $nickname . '<br/>' . 'You have ' . $correctAnswer . ' correct answers!' . '<br/>' . '<br/>';
+            echo 'session_id() = ' . session_id() . '<br/>';
+            echo 'session_name() = ' . session_name();
         ?>
-        You have
-        <?php
-            print_r($correctAnswer);
-        ?>
-        correct answers!
     </p>
 
 
